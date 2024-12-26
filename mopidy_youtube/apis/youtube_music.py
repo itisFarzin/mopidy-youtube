@@ -563,7 +563,8 @@ class Music(Client):
             )
             result = ytmusic.get_playlist(id)
             result["playlistId"] = result["id"]
-            result["artists"] = [result["author"]]
+            if not "artists" in result:
+                result["artists"] = [result.get("author", {"name": "Unknown Artist"})]
 
         else:
             logger.debug(
